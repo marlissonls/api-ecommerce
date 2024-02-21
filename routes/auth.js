@@ -1,23 +1,25 @@
-const jwt = require("express-jwt");
-const secret = require("../config").secret;
+import jwt from "express-jwt";
+import { secret } from "../config/index.js";
 
 function getTokenFromHeader(req) {
     if(!req.headers.authorization) return null;
-    const token = req.headers.authorization.split(" ")[1];
+    return req.headers.authorization.split(" ")[1];
 }
 
 const auth = {
-    required: jwt({
+    required: jwt.expressjwt({
         secret,
+        algorithms: ["HS256"],
         userProperty: 'payload',
         getToken: getTokenFromHeader
     }),
-    optional: jwt({
+    optional: jwt.expressjwt({
         secret,
+        algorithms: ["HS256"],
         userProperty: 'payload',
         credentialsRequired: false,
         getToken: getTokenFromHeader
     })
 };
 
-module.exports = auth;
+export default auth;

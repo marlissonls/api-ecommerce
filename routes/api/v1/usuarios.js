@@ -1,14 +1,14 @@
-const router = require("express").Router();
-const auth = require("../../auth");
-const UsuarioController = require("../../../controllers/UsuarioController");
+import express from "express";
+import auth from "../../auth.js";
+
+import UsuarioController from "../../../controllers/UsuarioController.js";
 
 const usuarioController = new UsuarioController();
 
-router.get("/", auth.required, usuarioController.index);
-router.get("/:id", auth.required, usuarioController.show);
+const router = express.Router();
 
 router.post("/login", usuarioController.login);
-router.post("/register", usuarioController.store);
+router.post("/registrar", usuarioController.store);
 router.put("/", auth.required, usuarioController.update);
 router.delete("/", auth.required, usuarioController.remove);
 
@@ -17,4 +17,7 @@ router.post("/recuperar-senha", usuarioController.createRecovery);
 router.get("/senha-recuperada", usuarioController.showCompleteRecovery);
 router.post("/senha-recuperada", usuarioController.completeRecovery);
 
-module.exports = router;
+router.get("/", auth.required, usuarioController.index);
+router.get("/:id", auth.required, usuarioController.show);
+
+export default router;

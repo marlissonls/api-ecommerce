@@ -8,24 +8,29 @@ import morgan from "morgan";
 import cors from "cors";
 
 // MODULES
-import dbs from "./config/database.json";
-import models from "./models";
-import routes from "./routes";
+import * as dbs from "./config/database.json" assert { type: "json" };
+import models from "./models/index.js";
+import routes from "./routes/index.js";
+
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
 // ENVIRONMENT
 const isProduction = process.env.NODE_ENV === "production";
 const PORT = process.env.PORT || 3000;
 
 // SETUP MONGODB
-const dbURI = isProduction ? dbs.dbProduction : dbs.dbTest;
+const dbURI = isProduction ? dbs.default.dbProduction : dbs.default.dbTest;
 mongoose.connect(dbURI, { useNewUrlParser: true });
 
 // START
 const app = express();
 
 // STATIC FILES
-app.use("/public", express.static(__dirname + "/public"));
-app.use("/public/images", express.static(__dirname + "public/images"));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+app.use("/public", express.static(join(__dirname, "public")));
+app.use("/public/images", express.static(join(__dirname, "public/images")));
 
 // SETUP EJS
 app.set("view engine", "ejs");
