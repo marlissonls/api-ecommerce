@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import { secret } from "../config/index.js";
 
 
-const Schema = mongoose.Schema;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UsuarioSchema = new mongoose.Schema({
     nome: {
@@ -21,7 +21,7 @@ const UsuarioSchema = new mongoose.Schema({
         match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'é inválido.']
     },
     loja: {
-        type: Schema.Types.ObjectId,
+        type: ObjectId,
         ref: "Loja",
         required: [true, "não pode ficar vazia"]
     },
@@ -49,7 +49,7 @@ UsuarioSchema.methods.setSenha = function(password) {
 
 UsuarioSchema.methods.validarSenha = function(password) {
     const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, "sha512").toString("hex");
-    hash === this.hash;
+    return hash === this.hash;
 };
 
 UsuarioSchema.methods.gerarToken = function() {
