@@ -18,7 +18,8 @@ class UsuarioController {
 
     // GET /:id
     show(req, res, next) {
-        Usuario.findById(req.params.id).populate({ path: "loja" })
+        Usuario.findById(req.params.id)
+        //.populate({ path: "loja" })
         .then(usuario => {
             if(!usuario) return res.status(401).json({ errors: "Usuário não registrado"});
             return res.json({
@@ -39,8 +40,6 @@ class UsuarioController {
         if ( !nome || !email || !password || !loja) return res.status(422).json({ errors: "Preencha todos os campos de cadastro" });
 
         const idLoja = new ObjectId(loja)
-        console.log("%%%%%%%%%%%%%%%%%%%")
-        console.log(idLoja)
 
         const usuario = new Usuario({ nome, email, loja: idLoja });
         usuario.setSenha(password);
@@ -56,7 +55,7 @@ class UsuarioController {
     // PUT
     update(req, res, next) {
         const { nome, email, password } = req.body;
-        Usuario.findBtId(req.payload.id).then((usuario) => {
+        Usuario.findById(req.payload.id).then(usuario => {
             if (!usuario) return res.status(401).json({ errors: "Usuario não registrado"});
             if (typeof nome !== "undefined") usuario.nome = nome;
             if (typeof email !== "undefined") usuario.email = email;
@@ -72,7 +71,7 @@ class UsuarioController {
     remove(req, res, next) {
         Usuario.findById(req.payload.id).then(usuario => {
             if(!usuario) return res.status(401).json({ errors: "Usuario não registrado" });
-            return usuario.remove().then(() => {
+            return usuario.deleteOne().then(() => {
                 return res.json({ deletado: true });
             }).catch(next);
         }).catch(next);
