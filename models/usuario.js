@@ -1,9 +1,11 @@
-const mongoose = require("mongoose"),
-      Schema = mongoose.Schema;
-const uniqueValidator = require('mongoose-unique-validator');
-const crypto = require("crypto");
-const jwt = require("jsonwebtoken");
-const secret = require("../config").secret;
+import mongoose from "mongoose";
+import uniqueValidator from 'mongoose-unique-validator';
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
+import { secret } from "../config/index.js";
+
+
+const Schema = mongoose.Schema;
 
 const UsuarioSchema = new mongoose.Schema({
     nome: {
@@ -16,7 +18,7 @@ const UsuarioSchema = new mongoose.Schema({
         unique: true,
         required: [true, "não pode ficar vazio."],
         index: true,
-        match: [/\s+@\s+\.\s+/, 'é inválido.']
+        match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'é inválido.']
     },
     loja: {
         type: Schema.Types.ObjectId,
@@ -52,8 +54,8 @@ UsuarioSchema.methods.validarSenha = function(password) {
 
 UsuarioSchema.methods.gerarToken = function() {
     const hoje = new Date();
-    const exp = new Date();
-    exp.setDate(today.getDate() + 15);
+    const exp = new Date(hoje);
+    exp.setDate(hoje.getDate() + 15);
 
     return jwt.sign({
         id: this._id,
@@ -87,4 +89,4 @@ UsuarioSchema.methods.finalizarTokenRecuperacaoSenha = function() {
     return this.recovery;
 };
 
-module.exports = mongoose.model("Usuario", UsuarioSchema)
+export default mongoose.model("Usuario", UsuarioSchema)
