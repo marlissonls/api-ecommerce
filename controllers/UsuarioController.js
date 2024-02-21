@@ -1,6 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import enviarEmailRecovery from "../helpers/email-recovery.js";
+
+
+const ObjectId = mongoose.Types.ObjectId;
+
 const Usuario = mongoose.model("Usuario")
-const enviarEmailRecovery = require("../helpers/email-recovery");
 
 class UsuarioController {
 
@@ -30,16 +34,23 @@ class UsuarioController {
 
     // POST /registrar
     store(req, res, next) {
-        const { nome, email, password } = req.body;
+        const { nome, email, password, loja } = req.body;
 
-        if ( !nome || !email || !password ) return res.status(422).json({ errors: "Preencha todos os campos de cadastro" });
+        if ( !nome || !email || !password || !loja) return res.status(422).json({ errors: "Preencha todos os campos de cadastro" });
 
-        const usuario = new Usuario({ nome, email });
+        const idLoja = new ObjectId(loja)
+        console.log("%%%%%%%%%%%%%%%%%%%")
+        console.log(idLoja)
+
+        const usuario = new Usuario({ nome, email, loja: idLoja });
         usuario.setSenha(password);
 
         usuario.save()
         .then(() => res.json({ usuario: usuario.enviarAuthJSON() }))
-        .catch(next);
+        .catch((err) => {
+            console.log(err)
+            next(err)
+        });
     }
 
     // PUT
@@ -95,7 +106,9 @@ class UsuarioController {
             if(!usuario) return res.render("recovery", { error: "Não existe usuário com este email", success: null });
             const recoveryData = usuario.criarTokenRecuperacaoSenha();
             return usuario.save().then(() => {
-                return res.render("recovery", { error: null, success: true });
+                enviarEmailRecovery({ usuario, recovery: recoveryData }, (error = null, success = null) => {
+                    return res.render("recovery", { error, success });
+                })
             }).catch(next);
         }).catch(next);
     }
@@ -129,3 +142,5 @@ class UsuarioController {
         });
     }
 }
+
+export default UsuarioController;
