@@ -1,3 +1,4 @@
 import usuario from "./usuario.js";
+import loja from "./loja.js";
 
-export default usuario;
+export { usuario, loja };
