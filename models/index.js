@@ -1,13 +1,15 @@
 import usuario from "./usuario.js";
 import cliente from "./cliente.js";
 import loja from "./loja.js";
-import categorias from "./categoria.js";
+import categoria from "./categoria.js";
 import produto from "./produto.js";
+import avaliacao from "./avaliacao.js";
 
 export default { 
     usuario,
     cliente,
     loja,
-    categorias,
+    categoria,
     produto,
+    avaliacao,
 };
