@@ -12,6 +12,11 @@ const validate = (schema) => {
             if (error) return res.status(400).json({ error });
         }
 
+        if (schema.hasOwnProperty("query")) {
+            const { error } = Joi.object(schema.query).validate(req.query);
+            if (error) return res.status(400).json({ error });
+        }
+
         next();
     };
 };

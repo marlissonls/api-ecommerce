@@ -9,6 +9,7 @@ import avaliacoes from "./avaliacoes.js";
 import variacoes from "./variacoes.js";
 import pedidos from "./pedidos.js";
 import entregas from "./entregas.js";
+import pagamentos from "./pagamentos.js";
 
 const router = express.Router();
 
@@ -23,6 +24,6 @@ router.use("/variacoes", variacoes);
 
 router.use("/pedidos", pedidos);
 router.use("/entregas", entregas);
-// router.use("/pagamentos", pagamento);
+router.use("/pagamentos", pagamentos);
 
 export default router;
