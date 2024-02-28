@@ -9,10 +9,10 @@ const router = express.Router();
 const lojaController = new LojaController();
 
 router.get("/", lojaController.index);
-router.get("/:id", (req, res, next) => validate(req, res, next, LojaValidation.show, lojaController.show));
+router.get("/:id", validate(LojaValidation.show), lojaController.show);
 
-router.post("/", auth.required, (req, res, next) => validate(req, res, next, LojaValidation.store, lojaController.store));
-router.put("/:id", auth.required, LojaValidation.admin, (req, res, next) => validate(req, res, next, LojaValidation.update, lojaController.update));
+router.post("/", auth.required, validate(LojaValidation.store), lojaController.store);
+router.put("/:id", auth.required, LojaValidation.admin, validate(LojaValidation.update), lojaController.update);
 router.delete("/:id", auth.required, LojaValidation.admin, lojaController.remove);
 
 export default router;

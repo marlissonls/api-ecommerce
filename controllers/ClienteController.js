@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-// const Pedido = mongoose.model("Pedido");
-// const Produto = mongoose.model("Produto");
-// const Variacao = mongoose.model("Variacao");
+const Pedido = mongoose.model("Pedido");
+const Produto = mongoose.model("Produto");
+const Variacao = mongoose.model("Variacao");
 
 const Cliente = mongoose.model("Cliente");
 const Usuario = mongoose.model("Usuario");
@@ -35,14 +35,14 @@ class ClienteController {
         try {
             const search = new RegExp(req.params.search, "i");
             const clientes = await Cliente.find({ loja, $text: { $search: search, $diacriticSensitive: false } });
-            // const pedidos = await Pedido.paginate(
-            //     { loja, cliente: { $in: clientes.map(item => item._id) } },
-            //     { offset, limit, populate: ["cliente","pagamento","entrega"] }
-            // );
+            const pedidos = await Pedido.paginate(
+                { loja, cliente: { $in: clientes.map(item => item._id) } },
+                { offset, limit, populate: ["cliente","pagamento","entrega"] }
+            );
             pedidos.docs = await Promise.all(pedidos.docs.map(async (pedido) => {
                 pedido.carrinho = await Promise.all(pedido.carrinho.map(async (item) => {
-                    //item.produto = await Produto.findById(item.produto);
-                    //item.variacao = await Variacao.findById(item.variacao);
+                    item.produto = await Produto.findById(item.produto);
+                    item.variacao = await Variacao.findById(item.variacao);
                     return item;
                 }));
                 return pedido;
@@ -89,18 +89,18 @@ class ClienteController {
     async showPedidosCliente(req,res,next){
         const { offset, limit, loja } = req.query;
         try {
-            // const pedidos = await Pedido.paginate(
-            //     { loja, cliente: req.params.id }, 
-            //     { 
-            //         offset: Number(offset || 0), 
-            //         limit: Number(limit || 30), 
-            //         populate: ["cliente", "pagamento","entrega"] 
-            //     }
-            // );
+            const pedidos = await Pedido.paginate(
+                { loja, cliente: req.params.id }, 
+                { 
+                    offset: Number(offset || 0), 
+                    limit: Number(limit || 30), 
+                    populate: ["cliente", "pagamento","entrega"] 
+                }
+            );
             pedidos.docs = await Promise.all(pedidos.docs.map(async (pedido) => {
                 pedido.carrinho = await Promise.all(pedido.carrinho.map(async (item) => {
-                    // item.produto = await Produto.findById(item.produto);
-                    // item.variacao = await Variacao.findById(item.variacao);
+                    item.produto = await Produto.findById(item.produto);
+                    item.variacao = await Variacao.findById(item.variacao);
                     return item;
                 }));
                 return pedido;

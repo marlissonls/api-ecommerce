@@ -57,7 +57,7 @@ const ClienteValidation = {
                 estado: Joi.string().required(),
                 CEP: Joi.string().required()
             }).optional(), 
-            // dataDeNascimento: Joi.date().format("YYYY-MM-DD").raw().optional()
+            dataDeNascimento: Joi.date().format("YYYY-MM-DD").raw().optional()
         }
     },
     show: {
@@ -84,7 +84,7 @@ const ClienteValidation = {
                 estado: Joi.string().required(),
                 CEP: Joi.string().required()
             }).required(), 
-            // dataDeNascimento: Joi.date().format("YYYY-MM-DD").raw().required()
+            dataDeNascimento: Joi.date().format("YYYY-MM-DD").raw().required()
         }
     },
     update: {
@@ -109,7 +109,7 @@ const ClienteValidation = {
                 estado: Joi.string().required(),
                 CEP: Joi.string().required()
             }).optional(), 
-            // dataDeNascimento: Joi.date().format("YYYY-MM-DD").raw().optional()
+            dataDeNascimento: Joi.date().format("YYYY-MM-DD").raw().optional()
         }
     }
 };

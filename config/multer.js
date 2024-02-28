@@ -5,4 +5,11 @@ const storage = multer.diskStorage({
     filename: (req, file, callback) => callback(null, file.fieldname + "-" + Date.now() + ".jpg")
 });
 
-export const upload = multer({ storage });
+const upload = multer({ storage });
+
+export default upload;
+
+// import { dirname, join } from 'path';
+// import { fileURLToPath } from 'url';
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
