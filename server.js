@@ -9,7 +9,7 @@ import cors from "cors";
 
 // MODULES
 import * as dbs from "./config/database.json" assert { type: "json" };
-import * as models from "./models/index.js";
+import models from "./models/index.js";
 import routes from "./routes/index.js";
 
 import { dirname, join } from 'path';

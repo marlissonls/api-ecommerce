@@ -1,6 +1,4 @@
-import BaseJoi from 'joi';
-import Extension from 'joi-date-extensions';
-const Joi = BaseJoi //.extend(Extension);
+import Joi from '../../helpers/joi.js';
 
 const UsuarioValidation = {
     show: {

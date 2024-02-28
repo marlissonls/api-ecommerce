@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi from "./joi.js";
 
 const validate = (req, res, next, schema, action) => {
     if (schema.hasOwnProperty("params")) {
