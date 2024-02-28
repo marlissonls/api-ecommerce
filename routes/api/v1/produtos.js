@@ -2,9 +2,9 @@ import express from "express";
 import auth from "../../auth.js";
 import validate from "../../../helpers/validate.js";
 import ProdutoController from "../../../controllers/ProdutoController.js";
-import ProdutoValidation from "../../../controllers/validacoes/produtoValidation";
-import LojaValidation from "../../../controllers/validacoes/lojaValidation";
-import upload from "../../../config/multer";
+import ProdutoValidation from "../../../controllers/validacoes/produtoValidation.js";
+import LojaValidation from "../../../controllers/validacoes/lojaValidation.js";
+import upload from "../../../config/multer.js";
 
 const router = express.Router();
 
