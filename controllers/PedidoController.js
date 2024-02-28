@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
 
+import PagamentoValidation from "./validacoes/pagamentoValidation.js";
+import EntregaValidation from "./validacoes/entregaValidation.js";
+import QuantidadeValidation from "./validacoes/quantidadeValidation.js";
+import EmailController from "./EmailController.js";
+import CarrinhoValidaticon from "./validacoes/carrinhoValidation.js";
+import calcularFrete from "./integracoes/correios.js";
+
 const Pedido = mongoose.model("Pedido");
 const Usuario = mongoose.model("Usuario");
 const Produto = mongoose.model("Produto");
@@ -8,15 +15,6 @@ const Pagamento = mongoose.model("Pagamento");
 const Entrega = mongoose.model("Entrega");
 const Cliente = mongoose.model("Cliente");
 const RegistroPedido = mongoose.model("RegistroPedido");
-
-const { calcularFrete } = require("./integracoes/correios");
-const PagamentoValidation = require("./validacoes/pagamentoValidation");
-const EntregaValidation = require("./validacoes/entregaValidation");
-const QuantidadeValidation = require("./validacoes/quantidadeValidation");
-
-const EmailController = require("./EmailController");
-
-const CarrinhoValidation = require("./validacoes/carrinhoValidation");
 
 class PedidoController {
 

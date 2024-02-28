@@ -2,22 +2,23 @@ import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate";
 const Schema = mongoose.Schema;
 
-const ProdutoSchema = Schema({
-    titulo: { type: String, required: true },
-    disponibilidade: { type: Boolean, default: true },
-    descricao: { type: String, required: true },
-    fotos: { type: Array, default: [] },
-    preco: { type: Number, required: true },
-    promocao: { type: Number },
-    sku: { type: String, required: true },
-    categoria: { type: Schema.Types.ObjectId, ref: "Categoria" },
-    loja: { type: Schema.Types.ObjectId, ref: "Loja" },
-    avaliacoes: { type: [{ type: Schema.Types.ObjectId, ref: "Avaliacoes"}] },
-    variacoes: { type: [{ type: Schema.Types.ObjectId, ref: "Variacoes"}] }
+const PedidoSchema = Schema({
+    cliente: { type: Schema.Types.ObjectId, ref: "Cliente", required: true },
+    carrinho: {
+        type: [{
+            produto: { type: Schema.Types.ObjectId, ref: "Produto", required: true },
+            variacao: { type: Schema.Types.ObjectId, ref: "Variacao", required: true },
+            produtoEstatico: { type: String },
+            quantidade: { type: Number, default: 1 },
+            precoUnitario: { type: Number, required: true } 
+        }]
+    },
+    pagamento:  { type: Schema.Types.ObjectId, ref: "Pagamento", required: true },
+    entrega:  { type: Schema.Types.ObjectId, ref: "Entrega", required: true },
+    cancelado: { type: Boolean, default: false },
+    loja: { type: Schema.Types.ObjectId, ref: "Loja", required: true }
 }, { timestamps: true });
 
-ProdutoSchema.plugin(mongoosePaginate);
+PedidoSchema.plugin(mongoosePaginate);
 
-ProdutoSchema.index({ titulo: "text", descricao: "text", sku: "text" });
-
-export default mongoose.model("Produto", ProdutoSchema);
+export default mongoose.model("Pedido", PedidoSchema);
