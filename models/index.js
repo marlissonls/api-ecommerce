@@ -6,6 +6,8 @@ import produto from "./produto.js";
 import avaliacao from "./avaliacao.js";
 import variacao from "./variacao.js";
 import pedido from "./pedido.js";
+import entrega from "./entrega.js";
+import registroPedido from "./registroPedido.js";
 
 export default { 
     usuario,
@@ -16,4 +18,6 @@ export default {
     avaliacao,
     variacao,
     pedido,
+    entrega,
+    registroPedido,
 };
