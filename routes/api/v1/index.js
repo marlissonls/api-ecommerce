@@ -7,6 +7,7 @@ import categorias from "./categorias.js";
 import produtos from "./produtos.js";
 import avaliacoes from "./avaliacoes.js";
 import variacoes from "./variacoes.js";
+import pedidos from "./pedidos.js";
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.use("/produtos", produtos);
 router.use("/avaliacoes", avaliacoes);
 router.use("/variacoes", variacoes);
 
-// router.use("/pedidos", pedidos);
+router.use("/pedidos", pedidos);
 // router.use("/entregas", entregas);
 // router.use("/pagamentos", pagamentos);
 
