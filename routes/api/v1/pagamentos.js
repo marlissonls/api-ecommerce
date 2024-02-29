@@ -25,4 +25,4 @@ router.post("/pagar/:id", auth.required, validate(PagamentoValidation.pagar), pa
 // ADMIN
 router.put("/:id", auth.required, LojaValidation.admin, validate(PagamentoValidation.update), pagamentoController.update);
 
-module.exports = router;
+export default router;

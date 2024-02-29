@@ -1,6 +1,4 @@
-import joi from "joi";
-import joiDateExtension from "joi-date-extensions";
+import joi from 'joi';
+import joiDate from '@joi/date';
 
-const Joi = joi.extend(joiDateExtension);
-
-export default Joi;
+export default joi.extend(joiDate);

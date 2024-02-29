@@ -2,4 +2,4 @@ const secret = process.env.NODE_ENV === "production" ? process.env.SECRET : "SD6
 const api = process.env.NODE_ENV === "production" ? "https://api.loja-teste.ampliee.com" : "http://localhost:3000";
 const loja = process.env.NODE_ENV === "production" ? "https://loja-teste.ampliee.com" : "http://localhost:8000";
 
-export default {secret, api, loja};
+export { secret, api, loja };

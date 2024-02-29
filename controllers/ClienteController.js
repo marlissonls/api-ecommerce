@@ -64,7 +64,8 @@ class ClienteController {
                     loja: req.query.loja, 
                     $or: [
                         { $text: { $search: search, $diacriticSensitive: false } },
-                        { telefones: { $regex: search } }
+                        // { telefones: { $regex: search } }
+                        // { telefones: { $regex: search, $options: 'i' } }
                     ]
                 }, 
                 { offset, limit, populate: { path:"usuario", select: "-salt -hash" } }
@@ -159,7 +160,7 @@ class ClienteController {
     }
 
     async store(req,res,next){
-        const { nome, email, cpf, telefones,endereco, dataDeNascimento, password } = req.body;
+        const { nome, email, cpf, telefones, endereco, dataDeNascimento, password } = req.body;
         const { loja } = req.query;
 
         const usuario = new Usuario({ nome, email, loja });
@@ -176,7 +177,7 @@ class ClienteController {
     }
 
     async update(req,res,next){
-        const { nome, email, cpf, telefones,endereco, dataDeNascimento, password } = req.body;
+        const { nome, email, cpf, telefones, endereco, dataDeNascimento, password } = req.body;
         try {
             const cliente = await Cliente.findOne({usuario: req.payload.id}).populate("usuario");
             if(!cliente) return res.send({ error: "Cliente não existe." })
@@ -206,7 +207,7 @@ class ClienteController {
     async remove(req,res,next){
         try {
             const cliente = await Cliente.findOne({ usuario: req.payload.id }).populate("usuario");
-            await cliente.usuario.remove();
+            await cliente.usuario.deleteOne();
             cliente.deletado = true;
             await cliente.save();
             return res.send({ deletado: true });

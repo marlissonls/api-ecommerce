@@ -157,7 +157,7 @@ const getNotification = (codigo) => {
     });
 }
 
-export default {
+export {
     criarPagamento,
     getSessionId,
     getTransactionStatus,

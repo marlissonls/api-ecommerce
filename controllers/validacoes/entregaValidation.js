@@ -1,10 +1,10 @@
 import Joi from '../../helpers/joi.js';
 import mongoose from "mongoose";
+import calcularFrete from "../integracoes/correios.js";
 
 const Produto = mongoose.model("Produto");
 const Variacao = mongoose.model("Variacao");
 
-const { calcularFrete } = require("../integracoes/correios");
 
 const EntregaValidation = {
     show: {

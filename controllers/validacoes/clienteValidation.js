@@ -3,6 +3,7 @@ import Joi from '../../helpers/joi.js';
 const ClienteValidation = {
     index: {
         query: {
+            loja: Joi.string().alphanum().length(24).required(),
             offset: Joi.number(),
             limit: Joi.number()
         }
@@ -18,6 +19,7 @@ const ClienteValidation = {
     },
     search: {
         query: {
+            loja: Joi.string().alphanum().length(24).required(),
             offset: Joi.number(),
             limit: Joi.number()
         },

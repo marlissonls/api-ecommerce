@@ -1,6 +1,6 @@
+import loja from "./loja.js";
 import usuario from "./usuario.js";
 import cliente from "./cliente.js";
-import loja from "./loja.js";
 import categoria from "./categoria.js";
 import produto from "./produto.js";
 import avaliacao from "./avaliacao.js";
