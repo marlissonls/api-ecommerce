@@ -1,4 +1,7 @@
 import nodemailer from "nodemailer";
+import dotenv from 'dotenv';
+dotenv.config();
+
 import emailConfigs from "../config/email.js";
 import { api as link} from "../config/index.js";
 

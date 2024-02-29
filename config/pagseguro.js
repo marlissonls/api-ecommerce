@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 export default {
     mode: process.env.NODE_ENV === 'production' ? "live" : 'sandbox',
     sandbox: process.env.NODE_ENV === 'production' ? false : true,

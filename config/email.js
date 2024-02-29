@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const emailConfig = {
     host: "smtp.gmail.com",
     port: 465,

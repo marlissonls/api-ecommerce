@@ -5,22 +5,25 @@ import ejs from "ejs";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import morgan from "morgan";
+import dotenv from 'dotenv';
 import cors from "cors";
 
 // MODULES
-import * as dbs from "./config/database.json" assert { type: "json" };
+import dbs from "./config/database.js"
 import models from "./models/index.js";
 import routes from "./routes/index.js";
-
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+
+// LOAD ENVIRONMENT VARIABLES
+dotenv.config();
 
 // ENVIRONMENT
 const isProduction = process.env.NODE_ENV === "production";
 const PORT = process.env.PORT || 3000;
 
 // SETUP MONGODB
-const dbURI = isProduction ? dbs.default.dbProduction : dbs.default.dbTest;
+const dbURI = isProduction ? dbs.dbProduction : dbs.dbTest;
 mongoose.connect(dbURI, { useNewUrlParser: true });
 
 // START

@@ -1,5 +1,8 @@
 import nodemailer from "nodemailer";
 import moment from "moment";
+import dotenv from 'dotenv';
+dotenv.config();
+
 import emailConfig from "../config/email.js";
 import { loja } from "../config/index.js";
 

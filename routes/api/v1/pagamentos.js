@@ -1,9 +1,12 @@
 import express from "express";
+import dotenv from 'dotenv';
 import auth from "../../auth.js";
 import validate from "../../../helpers/validate.js";
 import PagamentoController from "../../../controllers/PagamentoController.js";
 import PagamentoValidation from "../../../controllers/validacoes/pagamentoValidation.js";
 import LojaValidation from "../../../controllers/validacoes/lojaValidation.js";
+
+dotenv.config();
 
 const router = express.Router();
 
